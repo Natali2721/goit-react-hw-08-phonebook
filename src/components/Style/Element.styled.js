@@ -10,6 +10,15 @@ const Title = styled.h1`
   margin-bottom: ${p => p.theme.space[4]}px;
 `;
 
+const HomeTitle = styled.h1`
+  color: ${p => p.theme.colors.accent};
+  font-family: ${p => p.theme.fonts.body};
+  font-size: ${p => p.theme.fontSizes.l};
+  padding-top: ${p => p.theme.space[2]}px;
+  padding-bottom: ${p => p.theme.space[2]}px;
+  margin: 10px auto;
+`;
+
 const TitleSecond = styled.h2`
   color: ${p => p.theme.colors.accent};
   font-family: ${p => p.theme.fonts.body};
@@ -40,6 +49,18 @@ const Form = styled.form`
   padding: 10px 15px;
   display: flex;
   flex-direction: column;
+`;
+
+const HomeContainer = styled.div`
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+`;
+
+const ContactsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const Button = styled.button`
   padding: 10px 15px;
@@ -81,4 +102,7 @@ export {
   ContactItem,
   Contacts,
   ContactTxt,
+  HomeTitle,
+  HomeContainer,
+  ContactsContainer,
 };
