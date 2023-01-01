@@ -1,6 +1,7 @@
 import {
   Button,
   Input,
+  LabelReg,
   RegisterContainer,
   Title,
 } from 'components/Style/Element.styled';
@@ -26,10 +27,10 @@ const RegisterForm = () => {
 
   return (
     <RegisterContainer>
-      <Title>Please sign up</Title>
+      <Title>Please, sign up</Title>
       <form className={css.form} onSubmit={handleSubmit} autoComplete="off">
         <label className={css.label}>
-          Username
+          <LabelReg>Username</LabelReg>
           <Input
             type="text"
             name="name"
@@ -40,15 +41,21 @@ const RegisterForm = () => {
           />
         </label>
         <label className={css.label}>
-          Email
-          <Input type="email" name="email" placeholder="Enter email" required />
+          <LabelReg>Email</LabelReg>
+
+          <Input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
         </label>
         <label className={css.label}>
-          Password
+          <LabelReg>Password</LabelReg>
           <Input
             type="password"
             name="password"
-            placeholder="Enter password"
+            placeholder="Enter your password"
             required
           />
         </label>
