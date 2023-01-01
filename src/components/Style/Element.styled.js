@@ -39,6 +39,17 @@ const P = styled.p`
   margin-bottom: ${p => p.theme.space[3]}px;
 `;
 
+const LabelReg = styled.p`
+  color: ${p => p.theme.colors.black};
+  font-family: ${p => p.theme.fonts.body};
+  font-size: ${p => p.theme.fontSizes.s};
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin: 0px;
+  margin-top: ${p => p.theme.space[2]}px;
+  margin-bottom: ${p => p.theme.space[3]}px;
+`;
+
 const Input = styled.input`
   font-size: ${p => p.theme.fontSizes.s};
 `;
@@ -67,25 +78,35 @@ const RegisterContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+const LogInContainer = styled.div`
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const ContactsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 const Button = styled.button`
-  padding: 10px 15px;
+  padding: 8px 12px;
   margin-right: auto;
   margin-top: ${p => p.theme.space[4]}px;
   font-size: 16px;
   background-color: transparent;
   border: 1px black solid;
-  border-radius: 10px;
+  border-radius: 16px;
   cursor: pointer;
   transition: color 250ms linear;
   transition: background-color 250ms linear;
+  transition: border-color 250ms linear;
   &:hover {
     color: white;
-    background-color: blue;
+
+    background-color: ${p => p.theme.colors.accent};
+    border-color: transparent;
   }
 `;
 
@@ -117,4 +138,6 @@ export {
   ContactsContainer,
   Header,
   RegisterContainer,
+  LabelReg,
+  LogInContainer,
 };
