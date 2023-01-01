@@ -1,35 +1,23 @@
-//import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
-import { Box } from './Box/Box';
-import { H1, H2 } from './Title/Title';
-import { ContactList } from './ContactList/ContactList';
-import { Phonebook } from './Phonebook/Phonebook';
-import { Filter } from './Filter/Filter';
-import { P } from './Style/Element.styled';
-//const LS_KEY = 'contacts';
+import { Contacts } from './Contacts/Contacts';
+import Home from './Home/Home';
+import Layout from './Layout.js/Layout';
+import LoginForm from './LoginForm/LoginForm';
+import RegistrationForm from './RegistrationForm/RegistrationForm';
 
 export const App = () => {
-  const contacts = useSelector(state => state.contacts);
-  console.log(contacts);
-
-  //useEffect(() => {
-  //  localStorage.setItem(LS_KEY, JSON.stringify(contacts));
-  //}, [contacts]);
-
   return (
-    <Box as="main" px={5}>
-      <H1 title="Phonebook" />
-      <Phonebook />
-      {contacts.length > 0 ? (
-        <>
-          <H2 title="Contacts" />
-          <Filter title="Find contact by name" />
-          <ContactList />
-        </>
-      ) : (
-        <P>Phonebook is empty</P>
-      )}
-    </Box>
+    <div>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="contacts" element={<Contacts />} />
+          <Route path="register" element={<RegistrationForm />} />
+          <Route path="login" element={<LoginForm />} />
+        </Route>
+        <Route path="*" element={<Home />} />
+      </Routes>
+    </div>
   );
 };
