@@ -51,12 +51,22 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
+const Header = styled.header`
+  padding: 20px;
+  display: flex;
+`;
+
 const HomeContainer = styled.div`
   padding-top: 20px;
   display: flex;
   align-items: center;
 `;
-
+const RegisterContainer = styled.div`
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const ContactsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -105,4 +115,6 @@ export {
   HomeTitle,
   HomeContainer,
   ContactsContainer,
+  Header,
+  RegisterContainer,
 };
