@@ -35,6 +35,7 @@ const LoginForm = () => {
             name="email"
             placeholder="Enter your email"
             required
+            autocomplete="on"
           />
         </label>
         <label className={css.label}>

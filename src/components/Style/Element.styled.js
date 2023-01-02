@@ -71,6 +71,7 @@ const HomeContainer = styled.div`
   padding-top: 20px;
   display: flex;
   align-items: center;
+  flex-direction: column;
 `;
 const RegisterContainer = styled.div`
   padding-top: 20px;

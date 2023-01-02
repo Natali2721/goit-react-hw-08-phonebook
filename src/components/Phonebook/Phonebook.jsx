@@ -1,25 +1,31 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/phonebookSlice';
+import Notiflix from 'notiflix';
+//import { useDispatch, useSelector } from 'react-redux';
+//import { addContact } from 'redux/phonebookSlice';
 import { nanoid } from 'nanoid';
 import ButtonAdd from 'components/ContactForm/ButtonAdd';
 import ContactForm from 'components/ContactForm/ContactForm';
 import InputName from 'components/ContactForm/InputName';
 import InputTel from 'components/ContactForm/InputTel';
 import { LabelContact } from 'components/ContactForm/LabelContact';
+import {
+  useGetContactQuery,
+  useAddContactMutation,
+} from '../../redux/contacts/contactsApi';
 
 export const Phonebook = () => {
-  const contacts = useSelector(state => state.contacts);
-  const [userName, setUserName] = useState('');
+  const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const nameInputId = nanoid();
   const numberInputId = nanoid();
-  const dispatch = useDispatch();
+
+  const { data } = useGetContactQuery();
+  const [addContact] = useAddContactMutation();
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
     if (name === 'name') {
-      setUserName(value);
+      setName(value);
     }
     if (name === 'number') {
       setNumber(value);
@@ -27,31 +33,28 @@ export const Phonebook = () => {
   };
 
   const reset = () => {
-    setUserName('');
+    setName('');
     setNumber('');
   };
 
-  const addContactHandle = data => {
-    const id = nanoid(7);
-    data.id = id;
-    console.log(data);
-    contacts.filter(contact => contact.userName === data.userName).length > 0
-      ? alert(`${userName} is already in contacts.`)
-      : dispatch(addContact({ userName, number, id }));
-  };
-
-  const clickOnBtnAdd = e => {
-    e.preventDefault();
-    addContactHandle({ userName, number });
+  const clickOnBtnAdd = async event => {
+    event.preventDefault();
+    try {
+      data.find(contact => contact.name === name)
+        ? Notiflix.Notify.info(`${name} is already in contacts.`)
+        : (await addContact({ name, number })) &&
+          Notiflix.Notify.success(`${name} added to your phonebook 🚀`);
+    } catch (error) {
+      console.log(error);
+    }
     reset();
-    // console.log(this.state);
   };
 
   return (
     <>
       <ContactForm onSubmit={clickOnBtnAdd}>
         <LabelContact title="Name" htmlFor={nameInputId}>
-          <InputName value={userName} onChange={handleChange} />
+          <InputName value={name} onChange={handleChange} />
         </LabelContact>
         <LabelContact title="Number" htmlFor={numberInputId}>
           <InputTel value={number} onChange={handleChange} />

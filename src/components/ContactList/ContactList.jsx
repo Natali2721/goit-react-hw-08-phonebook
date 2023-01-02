@@ -5,48 +5,59 @@ import {
   ContactTxt,
 } from 'components/Style/Element.styled';
 import { FaUserAlt } from 'react-icons/fa';
-import { deleteContact } from 'redux/phonebookSlice';
-import { useDispatch } from 'react-redux';
+
 import { useSelector } from 'react-redux';
+import { Suspense } from 'react';
+import { Loader } from 'components/Loader/Loader';
+
+import {
+  useGetContactQuery,
+  useDeleteContactMutation,
+} from 'redux/contacts/contactsApi.js';
+
+import { getFilter } from 'redux/contacts/selectors';
 
 export const ContactList = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+  //const dispatch = useDispatch();
+  //const contacts = useSelector(state => state.contacts);
 
-  const deleteContactById = contactId => {
-    dispatch(deleteContact(contactId));
+  const { data } = useGetContactQuery();
+  const [deleteContact] = useDeleteContactMutation();
+
+  const handleDeleteClick = id => {
+    deleteContact(id);
   };
 
-  const searchFilter = useSelector(state => state.filter);
-
-  const serchFilterToLowerCase = searchFilter.toLowerCase();
+  const searchFilter = useSelector(getFilter);
 
   const getVisibleContacts = () => {
     if (searchFilter !== '') {
-      return contacts.filter(({ userName }) =>
-        userName.toLowerCase().includes(serchFilterToLowerCase)
+      return data.filter(({ name }) =>
+        name.toLowerCase().includes(searchFilter)
       );
     }
-    return contacts;
+    return data;
   };
 
   const visibleContacts = getVisibleContacts();
 
   return (
-    <Contacts>
-      {visibleContacts.map(({ userName, number, id }) => {
-        return (
-          <ContactItem key={id}>
-            <FaUserAlt />
-            <ContactTxt>
-              {userName} : {number}
-            </ContactTxt>
-            <Button type="button" onClick={() => deleteContactById(id)}>
-              Delete
-            </Button>
-          </ContactItem>
-        );
-      })}
-    </Contacts>
+    <Suspense fallback={<Loader />}>
+      <Contacts>
+        {visibleContacts.map(({ name, number, id }) => {
+          return (
+            <ContactItem key={id}>
+              <FaUserAlt />
+              <ContactTxt>
+                {name} : {number}
+              </ContactTxt>
+              <Button type="button" onClick={() => handleDeleteClick(id)}>
+                Delete
+              </Button>
+            </ContactItem>
+          );
+        })}
+      </Contacts>
+    </Suspense>
   );
 };

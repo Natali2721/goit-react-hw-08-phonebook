@@ -2,11 +2,10 @@ import { useSelector } from 'react-redux';
 
 import { ContactsContainer, P } from 'components/Style/Element.styled';
 import { Filter } from 'components/Filter/Filter';
-//import { Box } from 'components/Box/Box';
 import { Phonebook } from 'components/Phonebook/Phonebook';
 import { H1, H2 } from 'components/Title/Title';
 import { ContactList } from 'components/ContactList/ContactList';
-
+import { Outlet } from 'react-router-dom';
 //const LS_KEY = 'contacts';
 
 export const Contacts = () => {
@@ -30,6 +29,7 @@ export const Contacts = () => {
       ) : (
         <P>Phonebook is empty</P>
       )}
+      <Outlet />
     </ContactsContainer>
   );
 };
