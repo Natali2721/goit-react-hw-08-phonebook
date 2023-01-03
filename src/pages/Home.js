@@ -1,8 +1,7 @@
 import { HomeContainer, HomeTitle } from 'components/Style/Element.styled';
-
-import { selectIsLoggedIn, selectUser } from '../redux/auth/selectors';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { selectIsLoggedIn, selectUser } from 'redux/auth/slice';
 
 const Home = () => {
   const isUserLoggedIn = useSelector(selectIsLoggedIn);

@@ -27,7 +27,7 @@ const LoginForm = () => {
   return (
     <LogInContainer>
       <Title>Please, sign in</Title>
-      <form className={css.form} onSubmit={handleSubmit} autoComplete="off">
+      <form className={css.form} onSubmit={handleSubmit}>
         <label className={css.label}>
           <LabelReg>Email</LabelReg>
           <Input

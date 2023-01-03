@@ -1,63 +1,66 @@
+import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/contacts/contactSlice';
+import { deleteContact, fetchContacts } from 'redux/contacts/operations';
+import { getFilter } from 'redux/filter/filterSlice';
 import {
   Button,
   ContactItem,
   Contacts,
   ContactTxt,
+  P,
 } from 'components/Style/Element.styled';
 import { FaUserAlt } from 'react-icons/fa';
 
-import { useSelector } from 'react-redux';
-import { Suspense } from 'react';
-import { Loader } from 'components/Loader/Loader';
-
-import {
-  useGetContactQuery,
-  useDeleteContactMutation,
-} from 'redux/contacts/contactsApi.js';
-
-import { getFilter } from 'redux/contacts/selectors';
-
 export const ContactList = () => {
-  //const dispatch = useDispatch();
-  //const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
+  const { items, isLoading, error } = useSelector(getContacts);
+  const currentFilter = useSelector(getFilter);
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
-  const { data } = useGetContactQuery();
-  const [deleteContact] = useDeleteContactMutation();
-
-  const handleDeleteClick = id => {
-    deleteContact(id);
+  const delContact = e => {
+    const id = e.currentTarget.id;
+    dispatch(deleteContact(id));
   };
 
-  const searchFilter = useSelector(getFilter);
+  const filtredContacts = () => {
+    const toLowCaseFilter = currentFilter.toLocaleLowerCase();
 
-  const getVisibleContacts = () => {
-    if (searchFilter !== '') {
-      return data.filter(({ name }) =>
-        name.toLowerCase().includes(searchFilter)
-      );
-    }
-    return data;
+    return items.filter(contact =>
+      contact.name.toLowerCase().includes(toLowCaseFilter)
+    );
   };
-
-  const visibleContacts = getVisibleContacts();
+  const visibleContacts = filtredContacts();
 
   return (
-    <Suspense fallback={<Loader />}>
-      <Contacts>
-        {visibleContacts.map(({ name, number, id }) => {
-          return (
-            <ContactItem key={id}>
-              <FaUserAlt />
-              <ContactTxt>
-                {name} : {number}
-              </ContactTxt>
-              <Button type="button" onClick={() => handleDeleteClick(id)}>
-                Delete
-              </Button>
-            </ContactItem>
-          );
-        })}
-      </Contacts>
-    </Suspense>
+    <Contacts>
+      {isLoading && <P>Loading contacts...</P>}
+      {error && <P>{error}</P>}
+      {visibleContacts.map(el => (
+        <ContactItem key={el.id}>
+          <FaUserAlt />
+          <ContactTxt>
+            {el.name} : {el.number}
+          </ContactTxt>
+          <Button id={el.id} type="button" onClick={delContact}>
+            Delete
+          </Button>
+        </ContactItem>
+      ))}
+    </Contacts>
   );
+};
+
+ContactList.propTypes = {
+  currentFilter: PropTypes.string,
+  contacts: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
 };

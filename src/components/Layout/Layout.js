@@ -1,20 +1,14 @@
-import { Header } from 'components/Style/Element.styled';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { AppBar } from 'components/AppBar/AppBar';
+import { Suspense } from 'react';
 
-const Layout = () => {
+export const Layout = () => {
   return (
-    <div>
-      <Header>
-        <nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/contacts">Contacts</NavLink>
-          <NavLink to="/register">Sign up</NavLink>
-          <NavLink to="/login">Log In</NavLink>
-        </nav>
-      </Header>
-      <Outlet />
-    </div>
+    <>
+      <AppBar />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Outlet />
+      </Suspense>
+    </>
   );
 };
-
-export default Layout;
