@@ -9,6 +9,7 @@ import { PrivateRoute } from './PrivateRoute/PrivateRoute';
 import { selectIsRefreshing } from 'redux/auth/slice';
 import { RestrictedRoute } from './RestrictedRoute/RestrictedRoute';
 import { refreshUser } from 'redux/auth/operations';
+import { Loader } from './Loader/Loader';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -24,7 +25,7 @@ export const App = () => {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <P>'Fetching user data...'</P>
+    <Loader />
   ) : (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -43,7 +44,7 @@ export const App = () => {
         />
         <Route
           path="/contacts"
-          element={<PrivateRoute component={ContacsPage} redirectTo="/login" />}
+          element={<PrivateRoute component={ContacsPage} redirectTo="/" />}
         />
         <Route path="*" element={<HomePage />} />
       </Route>
