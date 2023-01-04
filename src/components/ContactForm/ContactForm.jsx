@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import Notiflix from 'notiflix';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact, updateContact } from 'redux/contacts/operations';
@@ -23,6 +23,19 @@ export const ContactForm = () => {
     }
   };
 
+  //const handleAddContact = async event => {
+  //  event.preventDefault();
+  //  try {
+  //    data.find(contact => contact.name === name)
+  //      ? Notiflix.Notify.info(`${name} is already in contacts.`)
+  //      : (await addContact({ name, number })) &&
+  //        Notiflix.Notify.success(`${name} added to your phonebook 🚀`);
+  //  } catch (error) {
+  //    console.log(error);
+  //  }
+  //  reset();
+  //};
+
   const onSubmitEvt = e => {
     e.preventDefault();
 
@@ -30,31 +43,33 @@ export const ContactForm = () => {
     const inContactsPhone = items.find(el => el.number === number);
 
     if (inContactsName) {
-      dispatch(
-        updateContact({
-          id: inContactsName.id,
-          name: name,
-          number: number,
-        })
-      );
+      //dispatch(
+      //  updateContact({
+      //   id: inContactsName.id,
+      //    name: name,
+      //    number: number,
+      //  })
+      //);
       setNumber('');
       setName('');
+      Notiflix.Notify.info(`${name} is already in contacts.`);
       return;
     }
     if (inContactsPhone) {
-      dispatch(
-        updateContact({
-          id: inContactsPhone.id,
-          name: name,
-          number: number,
-        })
-      );
+      //dispatch(
+      //  updateContact({
+      //    id: inContactsPhone.id,
+      //    name: name,
+      //    number: number,
+      //  })
+      //);
       setNumber('');
       setName('');
+      Notiflix.Notify.info(`${number} is already in contacts.`);
       return;
     } else {
-      // else add
       dispatch(addContact({ name: name, number: number }));
+      Notiflix.Notify.success(`${name} added to your phonebook 🚀`);
     }
 
     setNumber('');
