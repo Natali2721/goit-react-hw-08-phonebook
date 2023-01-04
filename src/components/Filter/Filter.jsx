@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Input, P } from 'components/Style/Element.styled';
+import { Input } from 'components/Style/Element.styled';
 import { getFilter, setFilter } from 'redux/filter/filterSlice';
+import { H2 } from 'components/Title/Title';
 
 export const Filter = () => {
   const filter = useSelector(getFilter);
@@ -12,7 +13,7 @@ export const Filter = () => {
 
   return (
     <div>
-      <P>Find contacts by name</P>
+      <H2 title="Find contacts by name" />
       <Input
         type="text"
         name="filter"
