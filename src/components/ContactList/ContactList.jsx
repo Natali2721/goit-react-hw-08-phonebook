@@ -12,6 +12,8 @@ import {
   P,
 } from 'components/Style/Element.styled';
 import { FaUserAlt } from 'react-icons/fa';
+import { Loader } from 'components/Loader/Loader';
+import Notiflix from 'notiflix';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -37,8 +39,8 @@ export const ContactList = () => {
 
   return (
     <Contacts>
-      {isLoading && <P>Loading contacts...</P>}
-      {error && <P>{error}</P>}
+      {isLoading && <Loader />}
+      {error && Notiflix.Notify.info({ error })}
       {visibleContacts.map(el => (
         <ContactItem key={el.id}>
           <FaUserAlt />
