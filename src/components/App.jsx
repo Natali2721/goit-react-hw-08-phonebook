@@ -4,7 +4,7 @@ import { lazy, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { P } from 'components/Style/Element.styled';
+//import { P } from 'components/Style/Element.styled';
 import { PrivateRoute } from './PrivateRoute/PrivateRoute';
 import { selectIsRefreshing } from 'redux/auth/slice';
 import { RestrictedRoute } from './RestrictedRoute/RestrictedRoute';
