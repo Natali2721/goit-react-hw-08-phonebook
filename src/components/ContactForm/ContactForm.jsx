@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Notiflix from 'notiflix';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, updateContact } from 'redux/contacts/operations';
+import { addContact } from 'redux/contacts/operations';
 import { Button, Form, Input, P } from 'components/Style/Element.styled';
 import { getContacts } from 'redux/contacts/contactSlice';
 
