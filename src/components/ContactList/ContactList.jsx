@@ -9,7 +9,6 @@ import {
   ContactItem,
   Contacts,
   ContactTxt,
-  P,
 } from 'components/Style/Element.styled';
 import { FaUserAlt } from 'react-icons/fa';
 import { Loader } from 'components/Loader/Loader';
