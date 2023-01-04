@@ -5,7 +5,7 @@ import { selectIsLoggedIn, selectUser } from 'redux/auth/slice';
 
 const Home = () => {
   const isUserLoggedIn = useSelector(selectIsLoggedIn);
-  const userName = useSelector(selectUser);
+  const user = useSelector(selectUser);
 
   //return (
   //  <HomeContainer>
@@ -15,7 +15,7 @@ const Home = () => {
 
   return isUserLoggedIn ? (
     <HomeContainer>
-      <HomeTitle>Welcome to PhoneBook, {userName}!</HomeTitle>
+      <HomeTitle>Welcome to PhoneBook, {user.name}!</HomeTitle>
       <h2>
         To create your contact, click <Link to="contacts">here</Link>
       </h2>
